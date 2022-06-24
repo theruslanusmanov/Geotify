@@ -33,7 +33,7 @@
 import UIKit
 import MapKit
 
-protocol AddGeotificationsViewControllerDelegate: class {
+protocol AddGeotificationsViewControllerDelegate: AnyObject {
   func addGeotificationViewController(_ controller: AddGeotificationViewController, didAddGeotification: Geotification)
 }
 

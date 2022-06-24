@@ -42,9 +42,12 @@ class GeotificationsViewController: UIViewController {
   @IBOutlet weak var mapView: MKMapView!
 
   var geotifications: [Geotification] = []
+  lazy var locationManager = CLLocationManager()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    locationManager.delegate = self
+    locationManager.requestAlwaysAuthorization()
     loadAllGeotifications()
   }
 
