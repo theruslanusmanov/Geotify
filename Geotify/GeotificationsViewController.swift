@@ -177,6 +177,18 @@ extension GeotificationsViewController: CLLocationManagerDelegate {
       showAlert(withTitle: "Warning", message: message)
     }
   }
+  
+  func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+    guard let region = region else {
+      print("Monitoring failed for unknown region")
+      return
+    }
+    print("Monitoring failed for region with identifier: \(region.identifier)")
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    print("Location Manager failed with the following error: \(error)")
+  }
 }
 
 // MARK: - MapView Delegate
