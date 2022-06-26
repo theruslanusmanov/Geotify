@@ -214,6 +214,7 @@ extension GeotificationsViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
     // Delete geotification
     guard let geotification = view.annotation as? Geotification else { return }
+    stopMonitoring(geotification: geotification)
     remove(geotification)
     saveAllGeotifications()
   }
