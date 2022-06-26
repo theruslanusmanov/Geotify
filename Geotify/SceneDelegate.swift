@@ -46,3 +46,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     locationManager.requestAlwaysAuthorization()
   }
 }
+
+extension SceneDelegate: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    if region is CLCircularRegion {
+      handleEvent(for: region)
+    }
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+    if region is CLCircularRegion {
+      handleEvent(for: region)
+    }
+  }
+  
+  func handleEvent(for region: CLRegion) {
+    print("Geofence triggered!")
+  }
+}
