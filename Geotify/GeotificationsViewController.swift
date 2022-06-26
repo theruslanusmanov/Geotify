@@ -94,6 +94,7 @@ class GeotificationsViewController: UIViewController {
 
   func updateGeotificationsCount() {
     title = "Geotifications: \(geotifications.count)"
+    navigationItem.rightBarButtonItem?.isEnabled = (geotifications.count < 20)
   }
 
   // MARK: Map overlay functions
@@ -146,11 +147,16 @@ class GeotificationsViewController: UIViewController {
 
 // MARK: AddGeotificationViewControllerDelegate
 extension GeotificationsViewController: AddGeotificationsViewControllerDelegate {
-  func addGeotificationViewController(_ controller: AddGeotificationViewController, didAddGeotification geotification: Geotification) {
+  func addGeotificationViewController(
+    _ controller: AddGeotificationViewController,
+    didAddGeotification geotification: Geotification
+  ) {
     controller.dismiss(animated: true, completion: nil)
 
-    geotification.clampRadius(maxRadius: 10_000)
+    geotification.clampRadius(maxRadius: locationManager.maximumRegionMonitoringDistance)
     add(geotification)
+    
+    startMonitoring(geotification: geotification)
     saveAllGeotifications()
   }
 }
