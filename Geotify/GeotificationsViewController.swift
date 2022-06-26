@@ -137,6 +137,20 @@ extension GeotificationsViewController: AddGeotificationsViewControllerDelegate 
 
 // MARK: - Location Manager Delegate
 extension GeotificationsViewController: CLLocationManagerDelegate {
+  
+  func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    let status = manager.authorizationStatus
+    
+    mapView.showsUserLocation = (status == .authorizedAlways)
+    
+    if status != .authorizedAlways {
+      let message = """
+      Your geotification is saved but will only be activated once you grant
+      Geotify permission to access the device location.
+      """
+      showAlert(withTitle: "Warning", message: message)
+    }
+  }
 }
 
 // MARK: - MapView Delegate
