@@ -122,6 +122,26 @@ class GeotificationsViewController: UIViewController {
   }
 
   // MARK: Put monitoring functions below
+  func startMonitoring(geotification: Geotification) {
+    if !CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
+      showAlert(withTitle: "Error", message: "Geofencing is not supported on this device!")
+      return
+    }
+    
+    let fenceRegion = geotification.region
+    locationManager.startMonitoring(for: fenceRegion)
+  }
+  
+  func stopMonitoring(geotification: Geotification) {
+    for region in locationManager.monitoredRegions {
+      guard
+        let circularRegion = region as? CLCircularRegion,
+        circularRegion.identifier == geotification.identifier
+      else { continue }
+      
+      locationManager.stopMonitoring(for: circularRegion)
+    }
+  }
 }
 
 // MARK: AddGeotificationViewControllerDelegate
