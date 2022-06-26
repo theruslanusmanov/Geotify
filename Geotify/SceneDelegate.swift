@@ -45,6 +45,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     locationManager.delegate = self
     locationManager.requestAlwaysAuthorization()
   }
+  
+  func note(from identifier: String) -> String? {
+    let geotifications = Geotification.allGeotifications()
+    let matched = geotifications.first { $0.identifier == identifier }
+    return matched?.note
+  }
 }
 
 extension SceneDelegate: CLLocationManagerDelegate {
