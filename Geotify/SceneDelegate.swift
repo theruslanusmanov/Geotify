@@ -31,7 +31,18 @@
 /// THE SOFTWARE.
 
 import UIKit
+import CoreLocation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
+  let locationManager = CLLocationManager()
+  
+  func scene(
+    _ scene: UIScene,
+    willConnectTo session: UISceneSession,
+    options connectionOptions: UIScene.ConnectionOptions
+  ) {
+    locationManager.delegate = self
+    locationManager.requestAlwaysAuthorization()
+  }
 }
