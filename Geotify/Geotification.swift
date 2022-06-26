@@ -116,5 +116,11 @@ extension Geotification {
 
 // MARK: - Notification Region
 extension Geotification {
-  // Put region here
+  var region: CLCircularRegion {
+    let region = CLCircularRegion(center: coordinate, radius: radius, identifier: identifier)
+    
+    region.notifyOnEntry = (eventType == .onEntry)
+    region.notifyOnExit = !region.notifyOnEntry
+    return region
+  }
 }
